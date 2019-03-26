@@ -14,9 +14,15 @@
       <b-field horizontal label="Link to Gift"
             v-bind:type="{ 'is-success' : validUrl }"
             v-bind:message="validUrlMessage">
-            <b-input value="johnsilver"></b-input>
+            <b-input></b-input>
       </b-field>
-      <b-field horizontal label='Price'>
+      <b-field horizontal label='Tags'>
+        <b-taginput
+            v-model="tags"
+            allow-new="true"
+            icon="label"
+            placeholder="Add a tag">
+        </b-taginput>
         <b-field>
           <p class="control">
               <span class="button is-static">$</span>
@@ -34,12 +40,19 @@
         v-bind:value="message"></b-input>
       </b-field>
       <b-field horizontal>
-            <p class="control">
-                <button class="button is-primary">
-                  Post Gift
-                </button>
-            </p>
-        </b-field>
+        <b-switch v-model="isPublic"
+            true-value="Public"
+            false-value="Private">
+            {{ isPublic }}
+        </b-switch>
+      </b-field>
+      <b-field horizontal>
+        <p class="control">
+            <button class="button is-primary">
+              Post Gift
+            </button>
+        </p>
+      </b-field>
     </div>
   </section>
 </template>
@@ -53,7 +66,9 @@ export default {
   data () {
     return {
       message: '',
-      price: ''
+      price: '',
+      tags: [],
+      isPublic: 'Public'
     }
   },
   computed: {
