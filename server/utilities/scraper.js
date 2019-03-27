@@ -1,4 +1,5 @@
 const metascraper = require('metascraper')([
+  require('metascraper-amazon')(),
   require('metascraper-author')(),
   require('metascraper-date')(),
   require('metascraper-description')(),
