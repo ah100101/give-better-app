@@ -2,6 +2,7 @@ const express = require('express')
 const consola = require('consola')
 const bodyParser = require('body-parser')
 const { Nuxt, Builder } = require('nuxt')
+const scraper = require('./utilities/scraper.js')
 const app = express()
 
 app.use(bodyParser.json())
@@ -10,7 +11,16 @@ let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
 app.post('/api/gift', function (req, res) {
-  return res.json({ message: req.body.message })
+  if (!req.body.url) {
+    res.status(500).json({ error: 'Invalid Url' })
+  }
+
+  scraper.scrape(req.body.url)
+    .then(result => {
+      return res.json(result)
+    })
+    .catch(error => res.status(500).json({ error }))
+  // return res.json({ message: req.body.message })
   // res.status(401).json({ error: 'Bad credentials' })
 })
 

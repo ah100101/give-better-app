@@ -14,12 +14,11 @@
       <b-field horizontal label="Link to Gift"
             v-bind:type="{ 'is-success' : validUrl }"
             v-bind:message="validUrlMessage">
-            <b-input></b-input>
+            <b-input v-model='giftUrl'></b-input>
       </b-field>
       <b-field horizontal label='Tags'>
         <b-taginput
             v-model="tags"
-            allow-new="true"
             icon="label"
             placeholder="Add a tag">
         </b-taginput>
@@ -30,14 +29,14 @@
           <b-input 
             type="number" 
             placeholder="0.00"
-            v-bind:value="price" 
+            v-model="price" 
             expanded></b-input>
         </b-field>
       </b-field>
       <b-field horizontal label="Message">    
         <b-input 
         type="textarea"
-        v-bind:value="message"></b-input>
+        v-model="message"></b-input>
       </b-field>
       <b-field horizontal>
         <b-switch v-model="isPublic"
@@ -48,7 +47,9 @@
       </b-field>
       <b-field horizontal>
         <p class="control">
-            <button class="button is-primary">
+            <button 
+              class="button is-primary"
+              v-on:click='submit()'>
               Post Gift
             </button>
         </p>
@@ -68,7 +69,20 @@ export default {
       message: '',
       price: '',
       tags: [],
-      isPublic: 'Public'
+      isPublic: 'Public',
+      giftUrl: ''
+    }
+  },
+  methods: {
+    submit: function () {
+      let giftRequest = {
+        giftUrl: this.giftUrl,
+        message: this.message,
+        price: this.price,
+        tags: this.tags,
+        isPublic: this.isPublic
+      }
+      console.log(giftRequest)
     }
   },
   computed: {
