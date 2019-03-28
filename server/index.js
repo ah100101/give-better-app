@@ -14,14 +14,14 @@ app.post('/api/gift', function (req, res) {
   if (!req.body.url) {
     res.status(500).json({ error: 'Invalid Url' })
   }
-
   scraper.scrape(req.body.url)
     .then(result => {
       return res.json(result)
     })
-    .catch(error => res.status(500).json({ error }))
-  // return res.json({ message: req.body.message })
-  // res.status(401).json({ error: 'Bad credentials' })
+    .catch(error => {
+      res.status(500, error)
+    })
+
 })
 
 async function start () {

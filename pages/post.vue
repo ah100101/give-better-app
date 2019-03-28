@@ -1,6 +1,5 @@
 <style lang='scss'>
   .post {
-    
     .form {
       padding: 2rem;
     }
@@ -14,7 +13,9 @@
       <b-field horizontal label="Link to Gift"
             v-bind:type="{ 'is-success' : validUrl }"
             v-bind:message="validUrlMessage">
-            <b-input v-model='giftUrl'></b-input>
+            <b-input 
+              v-model='giftUrl'
+              v-on:blur='getUrlData()'></b-input>
       </b-field>
       <b-field horizontal label='Tags'>
         <b-taginput
@@ -33,13 +34,18 @@
             expanded></b-input>
         </b-field>
       </b-field>
+      <b-field horizontal label="Title">
+        <b-input
+          v-model='title'></b-input>
+      </b-field>
       <b-field horizontal label="Message">    
         <b-input 
         type="textarea"
         v-model="message"></b-input>
       </b-field>
       <b-field horizontal>
-        <b-switch v-model="isPublic"
+        <b-switch 
+            v-model="isPublic"
             true-value="Public"
             false-value="Private">
             {{ isPublic }}
@@ -66,6 +72,7 @@ export default {
   },
   data () {
     return {
+      title: '',
       message: '',
       price: '',
       tags: [],
@@ -83,6 +90,16 @@ export default {
         isPublic: this.isPublic
       }
       console.log(giftRequest)
+    },
+    getUrlData: function () {
+      let state = this
+      this.$axios.$post('/api/gift', { url: state.giftUrl })
+      .then(result => {
+        console.log(result)
+        state.title = result.title
+        state.message = result.description
+      })
+      .catch(error => console.error(error))
     }
   },
   computed: {
