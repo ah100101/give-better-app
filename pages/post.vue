@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import postFunctions from '~/client/functions/post.js'
+
 export default {
   name: 'Post',
   components: {
@@ -72,6 +74,8 @@ export default {
   },
   data () {
     return {
+      // TODO: get actual user
+      user: '123',
       title: '',
       message: '',
       price: '',
@@ -83,6 +87,7 @@ export default {
   methods: {
     submit: function () {
       let giftRequest = {
+        userId: this.user,
         giftUrl: this.giftUrl,
         message: this.message,
         price: this.price,
@@ -90,6 +95,9 @@ export default {
         isPublic: this.isPublic
       }
       console.log(giftRequest)
+      this.$axios.$post('/api/post', giftRequest)
+        .then(result => console.log(result))
+        .catch(error => console.error(error))
     },
     getUrlData: function () {
       let state = this

@@ -11,7 +11,7 @@ const metascraper = require('metascraper')([
 
 const got = require('got')
 
-const scrape = (url) => {
+const scrapeUrl = (url) => {
   return new Promise((resolve, reject) => {
     getPage(url)
       .then(getMetadata)
@@ -56,5 +56,5 @@ const getMetadata = (page) => {
 }
 
 module.exports = {
-  scrape
+  scrapeUrl
 }
