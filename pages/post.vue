@@ -94,8 +94,11 @@ export default {
         tags: this.tags,
         isPublic: this.isPublic
       }
-      console.log(giftRequest)
-      this.$axios.$post('/api/post', giftRequest)
+      
+      this.$axios
+        .$post('/api/post', {
+          post: giftRequest
+        })
         .then(result => console.log(result))
         .catch(error => console.error(error))
     },

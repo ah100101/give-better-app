@@ -5,7 +5,11 @@ const { Nuxt, Builder } = require('nuxt')
 
 const scrapeFunctions = require('./functions/scraper.js')
 const firebaseFunctions = require('./functions/firebase.js')
-const postFunctions = require('./functions/post.js')
+// const postFunctions = require('./functions/post.js')
+
+const functions = {
+  post: require('./functions/post.js')
+}
 
 const app = express()
 
@@ -29,11 +33,16 @@ app.post('/api/gift', (req, res) => {
 })
 
 app.post('/api/post', (req, res) => {
-  if (!req.body.post || !req.body.userId) res.status(500).json({ error: 'Invalid Url' })
-  
-  postFunctions.isPostValid(req.body.post)
-    .then(postFunctions.createPost)
-    .then(res.json(req.body.post))
+  if (!req.body.post) res.status(500).json({ error: 'Invalid Request' })
+  if (!functions.post.isPostValid(req.body.post)) res.status(500).json({ error: 'Invalid Post' })
+
+  functions.post
+    .createPost({
+      post: req.body.post,
+      app: admin,
+      userId: req.body.post.userId
+    })
+    .then(result => res.json(result))
     .catch(error => res.status(500, error))
 })
 
