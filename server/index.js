@@ -5,6 +5,7 @@ const { Nuxt, Builder } = require('nuxt')
 
 const scrapeFunctions = require('./functions/scraper.js')
 const firebaseFunctions = require('./functions/firebase.js')
+const postFunctions = require('./functions/post.js')
 
 const app = express()
 
@@ -28,8 +29,12 @@ app.post('/api/gift', (req, res) => {
 })
 
 app.post('/api/post', (req, res) => {
-  console.log('gift posted')
-  res.json({ success: true })
+  if (!req.body.post || !req.body.userId) res.status(500).json({ error: 'Invalid Url' })
+  
+  postFunctions.isPostValid(req.body.post)
+    .then(postFunctions.createPost)
+    .then(res.json(req.body.post))
+    .catch(error => res.status(500, error))
 })
 
 async function start () {
