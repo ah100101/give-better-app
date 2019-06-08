@@ -4,7 +4,10 @@ const createPost = (params) => {
     if (!params.app) reject(new Error('Invalid firebase app provided'))
     if (!params.userId) reject(new Error('Invalid user ID provided'))
     if (!params.post) reject(new Error('Invalid post provided'))
-    // TODO: hook up to firebase
+    
+     const db = params.app.firestore()
+     db.collection('users').doc(params.userId).collection('gifts').add(params.post)
+
     resolve(params.post)
   })
 }
