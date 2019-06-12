@@ -38,6 +38,30 @@
 </template>
 
 <script>
+import * as fb from 'firebase'
+import 'firebase/firestore'
+
+var firebaseConfig = {
+    apiKey: "AIzaSyDARWn6RERDqZeTY4BurHWlvIuzFABPbzo",
+    authDomain: "bettergive-23113.firebaseapp.com",
+    databaseURL: "https://bettergive-23113.firebaseio.com",
+    projectId: "bettergive-23113",
+    storageBucket: "bettergive-23113.appspot.com",
+    messagingSenderId: "705969713313",
+    appId: "1:705969713313:web:2fa1c985bcee83cb"
+  };
+
+// Initialize Firebase
+//firebase.initializeApp(firebaseConfig);
+
+if (!fb.apps.length) {
+    fb.initializeApp(firebaseConfig);
+}
+
+console.log(fb)
+
+// var db = fb.firestore()
+
 export default {
   props: {
     // title: {

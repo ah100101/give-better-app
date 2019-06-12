@@ -11,10 +11,12 @@
 <template>
   <section class="section gifts">
     <h2>My Gifts</h2>
-    
+
+    <no-ssr>
     <card />
     <card />
     <card />
+    </no-ssr>
 
   </section>
 </template>
