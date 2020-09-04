@@ -27,7 +27,7 @@
     "metascraper-logo": "^5.0.1",
     "metascraper-title": "^5.0.1",
     "metascraper-url": "^5.0.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.4.0",
     "nuxt-buefy": "^0.3.2",
     "sass-loader": "^7.1.0"
