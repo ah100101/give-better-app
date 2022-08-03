@@ -18,7 +18,7 @@
     "firebase": "^6.1.1",
     "firebase-admin": "^7.3.0",
     "got": "^9.6.0",
-    "metascraper": "^5.0.0",
+    "metascraper": "^5.2.0",
     "metascraper-amazon": "^5.0.1",
     "metascraper-author": "^5.0.1",
     "metascraper-date": "^5.0.1",
